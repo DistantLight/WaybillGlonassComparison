@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>WaybillGlonassComparison</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>Информация о поездке</h2>
+    <br>
+    <strong>Единица оборудования: </strong> <span th:text="${report.mileageWaybill.vehicleId}"></span>
+    <br>
+    <strong>№ АК: </strong> <span th:text="${report.mileageWaybill.column}"></span>
+    <br>
+    <strong>МодификацияТС: </strong> <span th:text="${report.mileageWaybill.vehicleModification}"></span>
+    <br>
+    <strong>Гос. Номер: </strong> <span th:text="${report.mileageWaybill.vehicleNumber}"></span>
+    <br>
+    <strong>ФИО Водителя: </strong> <span th:text="${report.mileageWaybill.driverName}"></span>
+    <br>
+    <strong>Номер путевого листа: </strong> <span th:text="${report.mileageWaybill.waybillNumber}"></span>
+    <br>
+    <strong>Дата Выезда: </strong> <span th:text="${report.mileageWaybill.departureDate}"></span>
+    <br>
+    <strong>Дата возврата: </strong> <span th:text="${report.mileageWaybill.returnDate}"></span>
+    <br>
+    <strong>Марка топлива: </strong> <span th:text="${report.fuelWaybill.fuelGrade}"></span>
+    <br>
+    <strong>Пробег ТС по ПЛ, км: </strong> <span th:text="${report.mileageWaybill.mileage}"></span>
+    <br>
+    <strong>Пробег ТС по ГЛОНАСС, км: </strong> <span th:text="${report.mileage}"></span>
+    <br>
+    <strong>Разница пробега, км (ПЛ-ГЛОНАСС): </strong> <span th:text="${report.mileageDifference}"></span>
+    <br>
+    <strong>Топливо, Начало по ПЛ,л.: </strong> <span th:text="${report.fuelWaybill.fuelStart}"></span>
+    <br>
+    <strong>Топливо, Начало по ГЛОНАСС, л.: </strong> <span th:text="${report.fuelStart}"></span>
+    <br>
+    <strong>Разница Топливо Начало, л. (ПЛ-ГЛОНАСС): </strong> <span th:text="${report.fuelDifferenceStart}"></span>
+    <br>
+    <strong>Топливо, Окончание по ПЛ,л.: </strong> <span th:text="${report.fuelWaybill.fuelEnd}"></span>
+    <br>
+    <strong>Топливо, Окончание по ГЛОНАСС, л.: </strong> <span th:text="${report.fuelEnd}"></span>
+    <br>
+    <strong>Разница Топливо Окончание, л. (ПЛ-ГЛОНАСС): </strong> <span th:text="${report.fuelDifferenceEnd}"></span>
+    <br>
+    <strong>Заправка Всего, по ПЛ,л.: </strong> <span th:text="${report.fuelWaybill.fuelTotal}"></span>
+    <br>
+    <strong>Заправка Всего, по ГЛОНАСС,л.: </strong> <span th:text="${report.refillTotal}"></span>
+    <br>
+    <strong>Разница заправок,л. (ПЛ-ГЛОНАСС): </strong> <span th:text="${report.refillDifference}"></span>
+    <br>
+    <strong>Расход Всего, по ПЛ,л.: </strong> <span th:text="${report.fuelWaybill.fuelConsumption}"></span>
+    <br>
+    <strong>Расход Всего, по ГЛОНАСС,л.: </strong> <span th:text="${report.consumptionTotal}"></span>
+    <br>
+    <strong>Разница расхода,л. (ПЛ-ГЛОНАСС): </strong> <span th:text="${report.consumptionDifference}"></span>
+    <br>
+    <strong>МаршрутПлан: </strong> <span th:text="${report.mileageWaybill.plannedRoute}"></span>
+    <br>
+    <strong>МаршрутФакт: </strong> <span th:text="${report.mileageWaybill.actualRoute}"></span>
+    <br>
+    <strong>Максимальная скорость: </strong> <span th:text="${report.maxSpeed}"></span>
+    <br>
+    <strong>Средняя скорость: </strong> <span th:text="${report.averageSpeed}"></span>
+    <br>
+    <strong>Примечания: </strong> <span th:text="${report.note}"></span>
+    <br>
+    <br>
+    <form th:method="POST" th:action="@{/update}" th:object="${report}">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{fuelWaybill}">
+        <input type="hidden" th:field="*{mileageWaybill}">
+        <input type="hidden" th:field="*{maxSpeed}">
+        <input type="hidden" th:field="*{averageSpeed}">
+        <input type="hidden" th:field="*{mileage}">
+        <input type="hidden" th:field="*{fuelStart}">
+        <input type="hidden" th:field="*{fuelEnd}">
+        <input type="hidden" th:field="*{refillTotal}">
+        <input type="hidden" th:field="*{mileageDifference}">
+        <input type="hidden" th:field="*{fuelDifferenceStart}">
+        <input type="hidden" th:field="*{fuelDifferenceEnd}">
+        <input type="hidden" th:field="*{refillDifference}">
+        <input type="hidden" th:field="*{consumptionTotal}">
+        <input type="hidden" th:field="*{consumptionDifference}">
+        <input type="hidden" th:field="*{convoyNumber}">
+
+        <strong>Причина отклонения расхода топлива:  </strong>
+        <select th:field="*{fuelDeviationReason}" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option value=" "> </option>
+            <option value="Данные ГЛОНАСС некорректны">Данные ГЛОНАСС некорректны</option>
+            <option value="Нет данных от ДУТ">Нет данных от ДУТ</option>
+            <option value="Расхождение показателей расхода топлива не соответствует погрешности 5%">Расхождение показателей расхода топлива не соответствует погрешности 5%</option>
+            <option value="Эксплуатация на КПГ">Эксплуатация на КПГ</option>
+        </select>
+        <br>
+        <br>
+        <strong>Трудовые действия по устранению отклонения расхода топлива </strong>
+        <select th:field="*{fuelDeviationAction}" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option value=" "> </option>
+            <option value="Информация передана начальнику АК и в УТТиСТ">Информация передана начальнику АК и в УТТиСТ</option>
+            <option value="Информация передана ответственному лицу за ГЛОНАСС в АК">Информация передана ответственному лицу за ГЛОНАСС в АК</option>
+        </select>
+        <br>
+        <br>
+        <strong>Причина отклонения пробега </strong>
+        <select th:field="*{mileageDeviationReason}" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option value=" "> </option>
+            <option value="Нет данных ГЛОНАСС">Нет данных ГЛОНАСС</option>
+            <option value="Работа ТС измеряется в м/ч">Работа ТС измеряется в м/ч</option>
+            <option value="Расхождение показателей расхода топлива не соответствует погрешности 5%">Расхождение показателей расхода топлива не соответствует погрешности 5%</option>
+        </select>
+        <br>
+        <br>
+        <strong>Трудовые действия по устранению отклонения пробега </strong>
+        <select th:field="*{mileageDeviationAction}" class="form-select form-select-sm" aria-label=".form-select-sm example">
+            <option value=" "> </option>
+            <option value="Информация передана начальнику АК и в УТТиСТ">Информация передана начальнику АК и в УТТиСТ</option>
+            <option value="Информация передана ответственному лицу за ГЛОНАСС в АК">Информация передана ответственному лицу за ГЛОНАСС в АК</option>
+        </select>
+        <br>
+        <br>
+        <strong>Изменить примечания: </strong> <input type="text" th:field="${report.note}"/>
+        <br>
+        <br>
+        <input type="submit" value="Отправить изменения" class="btn btn-info">
+        <br>
+        <br>
+    </form>
+</div>
+</body>
+</html>

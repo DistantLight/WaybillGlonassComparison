@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WaybillGlonassComparison</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <a th:href="@{'/index'}">Вернуться на главную</a>
+    <br>
+    <h1>Данные по топливу из путевых листов</h1>
+    <br>
+    <form th:method="POST" th:action="@{/fuel/waybill}" enctype="multipart/form-data" th:object="${excel}">
+        <div>
+            <label for="excel">Добавить файл</label>
+            <div>
+                <input type="file" th:field="*{excelFile}" id="excel" />
+            </div>
+            <div>
+            <label for="list">Выберите номер автоколонны</label>
+                <select th:field="*{convoyNumber}" id="list">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" value="отправить" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+    <form th:method="POST" th:action="@{/fuel/waybill/convoy/delete}" >
+        <div>
+            <div>
+                <label for="list">Выберите номер автоколонны для удаления</label>
+                <select name="convoy">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+            <input type="submit" value="удалить данные" class="btn btn-warning">
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+    <form th:method="POST" th:action="@{/fuel/waybill/delete}" >
+        <div>
+            <div>
+                <label>Удалить все данные</label>
+            </div>
+            <input type="submit" value="удалить данные" class="btn btn-danger">
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+
+<div class="container">
+    <form th:method="GET" th:action="@{/fuel/waybill}">
+        <label for="list">Выберите номер автоколонны для показа</label>
+
+        <select name="convoy">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+        <div>
+            <input type="submit" value="показать" class="btn btn-info">
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <td>Номер путевого листа</td>
+            <td>Марка топлива </td>
+            <td>Топливо, Начало по ПЛ, л.</td>
+            <td>Топливо, Окончание по ПЛ </td>
+            <td>Норма Расхода</td>
+            <td>ЗаправкаСобстВес</td>
+            <td>ЗаправкаФилВес</td>
+            <td>ЗаправкаСобстОбъем</td>
+            <td>ЗаправкаФилОбъем</td>
+            <td>ЗаправкаСторОбъем</td>
+            <td>Расход Всего Объем по ПЛ, л.</td>
+            <td></td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="report : ${reports}">
+            <td th:text="${report.waybillNumber}"></td>
+            <td th:text="${report.fuelGrade}"></td>
+            <td th:text="${report.fuelStart}"></td>
+            <td th:text="${report.fuelEnd}"></td>
+            <td th:text="${report.consumptionRate}"></td>
+            <td th:text="${report.fuelingOwnWeight}"></td>
+            <td th:text="${report.fuelingBranchWeight}"></td>
+            <td th:text="${report.fuelingOwnVolume}"></td>
+            <td th:text="${report.fuelingBranchVolume}"></td>
+            <td th:text="${report.fuelingOutsideVolume}"></td>
+            <td th:text="${report.fuelConsumption}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:src="@{/script}"></script>
+</body>
+</html>

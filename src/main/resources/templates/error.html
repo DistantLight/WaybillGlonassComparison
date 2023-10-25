@@ -1,0 +1,42 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ошибка</title>
+    <style>
+        table td{
+        vertical-align:top;
+        border:solid 1px #888;
+        padding:10px;
+        }
+
+    </style>
+</head>
+<body>
+<a href="/index">Вернуться на главную</a>
+
+<h1>Произошла ошибка!</h1>
+<br>
+<table>
+    <tr>
+        <td>Date</td>
+        <td th:text="${timestamp}"/>
+    </tr>
+    <tr>
+        <td>Path</td>
+        <td th:text="${path}"/>
+    </tr>
+    <tr>
+        <td>Error</td>
+        <td th:text="${error}"/>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td th:text="${status}"/>
+    </tr>
+</table>
+</body>
+</html>
+
